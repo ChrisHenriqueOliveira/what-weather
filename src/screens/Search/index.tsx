@@ -1,6 +1,6 @@
 // components/Hello.tsx
-import React, { useCallback } from 'react';
-import { View, KeyboardAvoidingView, Platform } from 'react-native';
+import React, { useCallback, useEffect, useState } from 'react';
+import { View, KeyboardAvoidingView, Platform, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 import { 
@@ -14,7 +14,7 @@ const morning_bg = { uri: "https://static.dribbble.com/users/648922/screenshots/
 const afternoon_bg = { uri: "https://static.dribbble.com/users/648922/screenshots/6887377/attachments/1466540/1_cloudy_1125_2436_wallpaper.jpg" };
 const night_bg = { uri: "https://static.dribbble.com/users/648922/screenshots/6887377/attachments/1466542/3_night_1125_2436_wallpaper.jpg" };
 
-import morningbg from '../../assets/images/home_morning_bg.png';
+import { cities } from '../../mocks/cities';
 
 import {
     Container,
@@ -31,13 +31,25 @@ import {
   } from './styles';
 
 const Search: React.FC = () => {
-
   const currentTime = new Date();
-
   const formattedDate = format(
     currentTime, 
     "dd'/'MM'/'yyyy"
   );
+
+  const [allCities, setAllCities] = useState<string[]>([]); 
+  const [insertedCity, setInsertedCity] = useState<string>('');
+
+  useEffect(() => {
+    let allCitiesMocked: string[] = [];
+  
+    cities.forEach(item => {
+      allCitiesMocked.push(item.name)
+     
+    })
+
+    setAllCities(allCitiesMocked);
+  },[cities])
 
   const actualTime = useCallback(() => {
     const hour = currentTime.getHours();
@@ -63,6 +75,16 @@ const Search: React.FC = () => {
     }
   },[]);
 
+  const handleSubmit = useCallback(() => {
+
+    if(allCities.includes(insertedCity)){
+      
+    }else{
+      Alert.alert('Cidade incorreta','A cidade inserida não foi encontrada, insira outra e tente novamente!')
+    }
+
+  },[allCities, insertedCity])
+
   return (
     <>
       <KeyboardAvoidingView
@@ -73,7 +95,7 @@ const Search: React.FC = () => {
         <Container>
           <ImageBackground source={actualBg()} >
             <HeaderView>
-              <HeaderViewTitle>WHATEATHER</HeaderViewTitle>
+              <HeaderViewTitle>WHATWEATHER</HeaderViewTitle>
               <HeaderViewSubtitle>O clima em suas mãos</HeaderViewSubtitle>
             </HeaderView>
 
@@ -83,10 +105,13 @@ const Search: React.FC = () => {
 
               <SearchSubTitle>Entre com a cidade que deseja pesquisar</SearchSubTitle>
 
-              <SearchInput></SearchInput>
+              <SearchInput 
+                onChangeText={text => setInsertedCity(text)}
+                value={insertedCity}
+              />
 
-              <SearchButton>
-                <SearchButtonText>Pesquisar</SearchButtonText>
+              <SearchButton onPress={() => handleSubmit()}>
+                <SearchButtonText >Pesquisar</SearchButtonText>
               </SearchButton>
             </SearchView>
           </ImageBackground>

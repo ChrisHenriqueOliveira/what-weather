@@ -52,6 +52,8 @@ export const HeaderViewTitle = styled.Text`
   font-size: 24px;
   color: ${fontColor};
   font-family: 'Montserrat-Bold';
+
+  text-shadow: 2px 2px #000052;
 `;
 
 export const HeaderViewSubtitle = styled.Text`
@@ -60,6 +62,8 @@ export const HeaderViewSubtitle = styled.Text`
   font-size: 16px;
   color: ${fontColor};
   font-family: 'Montserrat-Bold';
+
+  text-shadow: 2px 2px #000052;
 `;
 
 export const SearchView = styled.View`
@@ -77,6 +81,8 @@ export const SearchTitle = styled.Text`
   font-size: 24px;
   color: ${fontColor};
   font-family: 'Montserrat-Bold';
+
+  text-shadow: 2px 2px #000052;
 `;
 
 export const SearchSubTitle = styled.Text`
@@ -85,6 +91,8 @@ export const SearchSubTitle = styled.Text`
   font-size: 16px;
   color: ${fontColor};
   font-family: 'Montserrat-Bold';
+
+  text-shadow: 2px 2px #000052;
 `;
 
 export const SearchInput = styled.TextInput`
@@ -98,8 +106,9 @@ export const SearchInput = styled.TextInput`
   padding: 0px 16px;
 
   color: ${fontColor};
-  background-color: rgba(244,237,232,0.3);
-  font-family: 'Montserrat-Regular';
+  text-align: center;
+  background-color: rgba(244,237,232,0.5);
+  font-family: 'Montserrat-Bold';
 `;
 
 export const SearchButton = styled(RectButton)`
