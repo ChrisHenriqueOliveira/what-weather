@@ -8,12 +8,13 @@ export default {
         screens: {
           Home: {
             screens: {
-              HomeScreen: 'home',
+              Home: 'home',
+              CityInfo: 'cityInfo',
             },
           },  
-          Search: {
+          About: {
             screens: {
-              SearchScreen: 'search',
+              About: 'about',
             },
           },     
         },

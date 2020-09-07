@@ -5,14 +5,15 @@ export type RootStackParamList = {
 
 export type BottomTabParamList = {
   Home: undefined;
-  Search: undefined;
+  About: undefined;
 };
 
 export type HomeParamList = {
-  HomeScreen: undefined;
+  Home: undefined;
+  CityInfo: undefined;
 };
 
-export type SearchParamList = {
-  SearchScreen: undefined;
+export type AboutParamList = {
+  About: undefined;
 };
 

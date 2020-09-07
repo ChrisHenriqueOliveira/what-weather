@@ -5,10 +5,13 @@ import * as React from 'react';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
-import Home from '../../src/screens/Home';
-import Search from '../../src/screens/Search';
 
-import { BottomTabParamList, HomeParamList } from '../../types';
+import Home from '../../src/screens/Home';
+import CityInfo from '../../src/screens/CityInfo';
+
+import About from '../../src/screens/About';
+
+import { BottomTabParamList, HomeParamList, AboutParamList } from '../../types';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -27,10 +30,10 @@ export default function BottomTabNavigator() {
         }}
       />
       <BottomTab.Screen
-        name="Search"
-        component={SearchNavigator}
+        name="About"
+        component={AboutNavigator}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-search" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="ios-help-circle" color={color} />,
         }}
       />
     </BottomTab.Navigator>
@@ -51,7 +54,7 @@ function HomeNavigator() {
   return (
     <HomeStack.Navigator>
       <HomeStack.Screen
-        name="HomeScreen"
+        name="Home"
         component={Home}
         options={
           { 
@@ -59,24 +62,33 @@ function HomeNavigator() {
           }
         }
       />
+      <HomeStack.Screen
+        name="CityInfo"
+        component={CityInfo}
+        options={
+          { 
+            headerShown: true,
+          }
+        }
+      />
     </HomeStack.Navigator>
   );
 }
 
-const SearchStack = createStackNavigator<HomeParamList>();
+const AboutStack = createStackNavigator<AboutParamList>();
 
-function SearchNavigator() {
+function AboutNavigator() {
   return (
-    <SearchStack.Navigator>
-      <SearchStack.Screen
-        name="SearchScreen"
-        component={Search}
+    <AboutStack.Navigator>
+      <AboutStack.Screen
+        name="About"
+        component={About}
         options={
           { 
             headerShown: false,
           }
         }
       />
-    </SearchStack.Navigator>
+    </AboutStack.Navigator>
   );
 }

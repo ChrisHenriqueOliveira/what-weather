@@ -12,19 +12,23 @@ const hour = currentTime.getHours();
 let fontColor;
 let buttonColor;
 let buttonFontColor;
+let textShadow;
 
 if(hour > 5 && hour < 13) {
   fontColor = '#000052';
+  textShadow = '#f4ede8';
 
   buttonFontColor = '#f4ede8';
   buttonColor = '#000052';
 }else if (hour >= 13 && hour < 19){
   fontColor = '#f4ede8';
+  textShadow = '#000052';
 
   buttonFontColor = '#f4ede8';
   buttonColor = '#000052';
 }else {
   fontColor = '#f4ede8';
+  textShadow = '#000052';
 
   buttonFontColor = '#000052';
   buttonColor = '#f4ede8';
@@ -66,7 +70,7 @@ export const HeaderViewSubtitle = styled.Text`
   text-shadow: 2px 2px #000052;
 `;
 
-export const SearchView = styled.View`
+export const AboutView = styled.View`
 
   flex: 1;
   display: flex;
@@ -74,60 +78,3 @@ export const SearchView = styled.View`
   align-items: center;
   justify-content: center;
 `;
-
-export const SearchTitle = styled.Text`
-  margin-top: 40px;
-  
-  font-size: 24px;
-  color: ${fontColor};
-  font-family: 'Montserrat-Bold';
-
-  text-shadow: 2px 2px #000052;
-`;
-
-export const SearchSubTitle = styled.Text`
-  margin-top: 8px;
-
-  font-size: 16px;
-  color: ${fontColor};
-  font-family: 'Montserrat-Bold';
-
-  text-shadow: 2px 2px #000052;
-`;
-
-export const SearchInput = styled.TextInput`
-  border: 1px solid #f4ede8;
-  border-radius: 8px;
-
-  height: 40px;
-  width: ${width * 0.9 };
-  margin-top: 16px;
-
-  padding: 0px 16px;
-
-  color: ${fontColor};
-  text-align: center;
-  background-color: rgba(244,237,232,0.5);
-  font-family: 'Montserrat-Bold';
-`;
-
-export const SearchButton = styled(RectButton)`
-  background: ${buttonColor};
-
-  border-radius: 8px;
-  padding: 16px;
-  margin-top: 8px;
-
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-
-  width: ${width * 0.9 };
-`;
-
-export const SearchButtonText = styled.Text`
-  font-size: 16px;
-  color: ${buttonFontColor};;
-  font-family: 'Montserrat-Bold';
-`;
-
