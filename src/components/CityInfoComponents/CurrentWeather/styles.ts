@@ -4,9 +4,7 @@ import { Dimensions } from 'react-native';
 const win = Dimensions.get('window');
 const ratio = win.width/541; //541 is actual image width
 
-export const Container = styled.View`
-  flex: 1;
-`;
+export const Container = styled.View``;
 
 export const CurrentInfo = styled.View`
   display: flex;
@@ -66,3 +64,27 @@ export const SunInfoCardDesc = styled.Text`
   font-family: 'Montserrat-Medium';
 `;
 
+export const AdditionalInfo = styled.View`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  padding: 32px;
+  `;
+
+export const AdditionalInfoCard = styled.View`
+  display: flex;
+  align-items: center;
+`;
+
+export const AdditionalInfoCardValue = styled.Text`
+  font-size: 20px;
+  color: #000;
+  font-family: 'Montserrat-Bold';
+`;
+
+export const AdditionalInfoCardDesc = styled.Text`
+  font-size: 16px;
+  color: #000;
+  font-family: 'Montserrat-Medium';
+`;

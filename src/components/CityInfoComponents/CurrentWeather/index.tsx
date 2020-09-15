@@ -14,6 +14,10 @@ import {
   SunInfoCard,
   SunInfoCardIcon,
   SunInfoCardDesc,
+  AdditionalInfo,
+  AdditionalInfoCard,
+  AdditionalInfoCardValue,
+  AdditionalInfoCardDesc,
   } from './styles';
 
   import sunWeather from '../../../assets/images/weathers/sunWeather.png';
@@ -59,7 +63,7 @@ const CurrentWeather: React.FC<CurrentWatherProps> = ( { data } ) => {
           </CurrentInfoLeft>
           <Image source={sunWeather} style={{marginLeft: 8}}></Image>
         </CurrentInfo>
-
+        
         <SunInfo>
           <SunInfoCard>
             <SunInfoCardIcon>
@@ -76,23 +80,22 @@ const CurrentWeather: React.FC<CurrentWatherProps> = ( { data } ) => {
           </SunInfoCard>
         </SunInfo>
 
-        {/* <AdditionalInfo>
+        <AdditionalInfo>
           <AdditionalInfoCard>
-            <AdditionalInfoCardValue></AdditionalInfoCardValue>
-            <AdditionalInfoCardDesc></AdditionalInfoCardDesc>
+            <AdditionalInfoCardValue>{data?.humidity}%</AdditionalInfoCardValue>
+            <AdditionalInfoCardDesc>Humidity</AdditionalInfoCardDesc>
           </AdditionalInfoCard>
 
           <AdditionalInfoCard>
-            <AdditionalInfoCardValue></AdditionalInfoCardValue>
-            <AdditionalInfoCardDesc></AdditionalInfoCardDesc>
+            <AdditionalInfoCardValue>{data?.uvi}</AdditionalInfoCardValue>
+            <AdditionalInfoCardDesc>UV Index</AdditionalInfoCardDesc>
           </AdditionalInfoCard>
 
           <AdditionalInfoCard>
-            <AdditionalInfoCardValue></AdditionalInfoCardValue>
-            <AdditionalInfoCardDesc></AdditionalInfoCardDesc>
+            <AdditionalInfoCardValue>{data?.wind_speed} kmh</AdditionalInfoCardValue>
+            <AdditionalInfoCardDesc>Wind</AdditionalInfoCardDesc>
           </AdditionalInfoCard>
-        </AdditionalInfo> */}
-       
+        </AdditionalInfo>
     </Container>
   );
 };

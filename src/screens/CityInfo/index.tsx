@@ -3,8 +3,15 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { Text } from 'react-native';
 
 import {
-    Container,
+  Container,
+  SectionNextHoursContent,
+  SectionNextHours,
+  SectionNextHoursTitle,
+  SectionNextHoursCard,
+  SectionNextHoursCardDay,
+  SectionNextHoursCardTemp,
   } from './styles';
+
 import CurrentWeather from '../../components/CityInfoComponents/CurrentWeather';
 
   interface RouteParams {
@@ -1408,6 +1415,33 @@ const CityInfo: React.FC = () => {
       ]
   }
 
+  function utcConvert(value: number) {
+    var d = new Date(value * 1000),	// Convert the passed timestamp to milliseconds
+		yyyy = d.getFullYear(),
+		mm = ('0' + (d.getMonth() + 1)).slice(-2),	// Months are zero based. Add leading 0.
+		dd = ('0' + d.getDate()).slice(-2),			// Add leading 0.
+		hh = d.getHours(),
+		h = hh,
+		min = ('0' + d.getMinutes()).slice(-2),		// Add leading 0.
+		ampm = 'AM',
+		time;
+			
+	if (hh > 12) {
+		h = hh - 12;
+		ampm = 'PM';
+	} else if (hh === 12) {
+		h = 12;
+		ampm = 'PM';
+	} else if (hh == 0) {
+		h = 12;
+	}
+	
+	// ie: 2013-02-18, 8:35 AM	
+	time = dd + '/' + mm + ' - ' + h + ':' + min + ' ' + ampm;
+		
+	return time;
+  }
+
   useEffect(() => {
     navigation.setOptions({
       title: `Condições em ${city}`,
@@ -1429,6 +1463,20 @@ const CityInfo: React.FC = () => {
   return (
     <Container>
       <CurrentWeather data={cityCoditions?.current}></CurrentWeather>
+
+      <SectionNextHours>
+            <SectionNextHoursTitle>Próximas horas</SectionNextHoursTitle>
+
+            <SectionNextHoursContent>
+              {cityCoditions?.hourly.map(item => (
+                <SectionNextHoursCard>
+                  <SectionNextHoursCardDay>{`${utcConvert(item.dt)}`}</SectionNextHoursCardDay> 
+                  <SectionNextHoursCardTemp>{`${item.temp.toFixed(0)}°`}</SectionNextHoursCardTemp> 
+                </SectionNextHoursCard>
+            ))}
+            </SectionNextHoursContent>
+          </SectionNextHours>
+
     </Container>
   );
 };
