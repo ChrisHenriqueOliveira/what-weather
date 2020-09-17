@@ -22,7 +22,6 @@ export const cities = [
     {name:'São Luís',lat:-2.516,lng:-44.266,},
     {name:'Florianópolis',lat:-27.58,lng:-48.52,},
     {name:'Joinvile',lat:-26.32,lng:-48.8399,},
-    {name:'Natal',lat:-6.9838,lng:-60.2699,},
     {name:'João Pessoa',lat:-7.1011,lng:-34.8761,},
     {name:'Olinda',lat:-8,lng:-34.85,},
     {name:'Teresina',lat:-5.095,lng:-42.78,},

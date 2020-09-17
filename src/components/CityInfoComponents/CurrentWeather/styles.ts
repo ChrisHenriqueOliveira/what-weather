@@ -69,7 +69,8 @@ export const AdditionalInfo = styled.View`
   flex-direction: row;
   width: 100%;
   justify-content: space-between;
-  padding: 32px;
+  padding-horizontal: 32px;
+  padding-vertical: 16px;
   `;
 
 export const AdditionalInfoCard = styled.View`

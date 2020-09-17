@@ -104,7 +104,7 @@ export const SearchInput = styled.TextInput`
   border-radius: 8px;
 
   height: 40px;
-  width: ${width * 0.9 };
+  width: ${width * 0.9 }px;
   margin-top: 16px;
 
   padding: 0px 16px;
@@ -126,7 +126,7 @@ export const SearchButton = styled(RectButton)`
   align-items: center;
   justify-content: center;
 
-  width: ${width * 0.9 };
+  width: ${width * 0.9 }px;
 `;
 
 export const SearchButtonText = styled.Text`

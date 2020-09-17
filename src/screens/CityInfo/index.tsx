@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { Text } from 'react-native';
+import { View, Text, Image, ActivityIndicator, ScrollView } from 'react-native';
 
 import {
   Container,
@@ -12,8 +12,25 @@ import {
   SectionNextHoursCardTemp,
   } from './styles';
 
+  import icon1 from '../../assets/images/icons/01d.png';
+  import icon2 from '../../assets/images/icons/02d.png';
+  import icon3 from '../../assets/images/icons/03d.png';
+  import icon4 from '../../assets/images/icons/04d.png';
+  import icon5 from '../../assets/images/icons/09d.png';
+  import icon6 from '../../assets/images/icons/10d.png';
+  import icon7 from '../../assets/images/icons/11d.png';
+  import icon8 from '../../assets/images/icons/13d.png';
+  import icon9 from '../../assets/images/icons/50d.png';
+
 import CurrentWeather from '../../components/CityInfoComponents/CurrentWeather';
 
+import { cities } from '../../mocks/cities';
+
+  interface CitiesProps {
+    name: string;
+    lat: number; 
+    lng: number;
+  }
   interface RouteParams {
     city: string;
   };
@@ -87,8 +104,8 @@ const CityInfo: React.FC = () => {
   const { city } = route.params as RouteParams;
 
   const [cityCoditions, setCityConditions] = useState<ResponseData>();
-
-  const data = { 
+  const [loading, setLoading] = useState<boolean>(true);
+  const dataz = { 
       "lat": 33.44,
       "lon": -94.04,
       "timezone": "America/Chicago",
@@ -1437,9 +1454,9 @@ const CityInfo: React.FC = () => {
 	}
 	
 	// ie: 2013-02-18, 8:35 AM	
-	time = dd + '/' + mm + ' - ' + h + ':' + min + ' ' + ampm;
-		
-	return time;
+  time = dd + '/' + mm + ' - ' + h + ':' + min + ' ' + ampm;
+  
+  return time;
   }
 
   useEffect(() => {
@@ -1447,36 +1464,85 @@ const CityInfo: React.FC = () => {
       title: `Condições em ${city}`,
     });
 
-    // fetch(
-    //   `https://api.openweathermap.org/data/2.5/onecall?lat=33.441792&lon=-94.037689&exclude=minutely&units=metric&lang=pt_BR&appid=dadadadada`,
-    // )
-    //   .then(response => response.json())
-    //   .then(data => {
-    //     setCityConditions(data);
-    //     console.log(data)
-    //   })
+    setLoading(true);
 
-    setCityConditions(data);
+    const selectedCity: CitiesProps[] = cities.filter((mockCity) => {
+      return mockCity.name === city;
+    })
+
+    const lat = selectedCity[0].lat;
+    const lng = selectedCity[0].lng;
+
+     fetch(
+       `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lng}&exclude=minutely&units=metric&lang=pt_BR&appid=bc727791ed2a7f898dde493dbe15c0b2`,
+     )
+       .then(response => response.json())
+       .then(data => {
+         setCityConditions(data);
+         console.log(data);
+         
+         setLoading(false);
+       })
+
+    //setCityConditions(data);
   }, [navigation]);
 
+  const handleWeatherIcon = useCallback((value) => {
+
+
+    if (value >= 200 && value <= 232) {
+      return <Image source={icon7}/>
+    }else if (value >= 300 && value <= 321) {
+      return <Image source={icon5}/>
+    }else if (value >= 500 && value <= 504) {
+      return <Image source={icon6}/>
+    }else if (value >= 511 && value <= 511) {
+      return <Image source={icon7}/>
+    }else if (value >= 520 && value <= 531) {
+      return <Image source={icon5}/>
+    }else if (value >= 600 && value <= 622) {
+      return <Image source={icon8}/>
+    }else if (value >= 701 && value <= 781) {
+      return <Image source={icon9}/>
+    }else if (value >= 800 && value <= 800) {
+      return <Image source={icon1}/>
+    }else if (value >= 801 && value <= 804) {
+      return <Image source={icon2}/>
+    }
+
+
+  },[])
 
   return (
     <Container>
-      <CurrentWeather data={cityCoditions?.current}></CurrentWeather>
 
-      <SectionNextHours>
-            <SectionNextHoursTitle>Próximas horas</SectionNextHoursTitle>
+      {loading ? (
+        <View style={{ flex: 1, justifyContent:"center", alignItems:"center"}}>
+          <ActivityIndicator
+            size="large"
+            color="#000"
+          />
+          <Text>Aguarde, carregando dados...</Text>
+        </View>
+      ) : (
+        <ScrollView>
+          <CurrentWeather data={cityCoditions?.current}></CurrentWeather>
 
-            <SectionNextHoursContent>
-              {cityCoditions?.hourly.map(item => (
-                <SectionNextHoursCard>
-                  <SectionNextHoursCardDay>{`${utcConvert(item.dt)}`}</SectionNextHoursCardDay> 
-                  <SectionNextHoursCardTemp>{`${item.temp.toFixed(0)}°`}</SectionNextHoursCardTemp> 
-                </SectionNextHoursCard>
-            ))}
-            </SectionNextHoursContent>
-          </SectionNextHours>
+          <SectionNextHours>
+              <SectionNextHoursTitle>Próximas horas</SectionNextHoursTitle>
 
+              <SectionNextHoursContent>
+                {cityCoditions?.hourly.map((item, index )=> (
+                  <SectionNextHoursCard key={index}>
+                    {handleWeatherIcon(item.weather[0].id)}
+                    <SectionNextHoursCardDay>{`${utcConvert(item.dt)}`}</SectionNextHoursCardDay> 
+                    <SectionNextHoursCardTemp>{`${item.temp.toFixed(0)}°`}</SectionNextHoursCardTemp> 
+                  </SectionNextHoursCard>
+              ))}
+              </SectionNextHoursContent>
+            </SectionNextHours>
+        </ScrollView>
+      )}
     </Container>
   );
 };
