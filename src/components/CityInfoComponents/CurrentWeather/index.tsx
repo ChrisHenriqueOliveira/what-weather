@@ -188,8 +188,8 @@ const CurrentWeather: React.FC<CurrentWatherProps> = ( { data } ) => {
           </AdditionalInfoCard>
 
           <AdditionalInfoCard>
-            <AdditionalInfoCardValue>{`${data?.dew_point.toFixed(0)}°`}</AdditionalInfoCardValue>
-            <AdditionalInfoCardDesc>Dew Point</AdditionalInfoCardDesc>
+            <AdditionalInfoCardValue>{`${data?.wind_deg.toFixed(0)}°`}</AdditionalInfoCardValue>
+            <AdditionalInfoCardDesc>Wind Degrees</AdditionalInfoCardDesc>
           </AdditionalInfoCard>
         </AdditionalInfo>
 

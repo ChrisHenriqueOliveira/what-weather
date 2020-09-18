@@ -4,6 +4,8 @@ export const Container = styled.View`
   flex: 1;
 
   background-color: #70A9EF;
+
+  padding-bottom: 30px;
 `;
 
 export const SectionNextHours = styled.View``;
