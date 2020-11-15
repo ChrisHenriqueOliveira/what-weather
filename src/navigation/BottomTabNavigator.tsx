@@ -6,12 +6,12 @@ import * as React from 'react';
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 
-import Home from '../../src/screens/Home';
+import Home from '../screens/Home';
 import CityInfo from '../../src/screens/CityInfo';
 
-import About from '../../src/screens/About';
+import Favorites from '../../src/screens/Favorites';
 
-import { BottomTabParamList, HomeParamList, AboutParamList } from '../../types';
+import { BottomTabParamList, SearchParamList, FavoritesParamList } from '../../types';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -20,20 +20,20 @@ export default function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="Home"
+      initialRouteName="Search"
       tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}>
       <BottomTab.Screen
-        name="Home"
-        component={HomeNavigator}
+        name="Search"
+        component={SearchNavigator}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-home" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="ios-search" color={color} />,
         }}
       />
       <BottomTab.Screen
-        name="About"
-        component={AboutNavigator}
+        name="Favorites"
+        component={FavoritesNavigator}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-help-circle" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="ios-heart" color={color} />,
         }}
       />
     </BottomTab.Navigator>
@@ -46,15 +46,15 @@ function TabBarIcon(props: { name: string; color: string }) {
   return <Ionicons size={30} style={{ marginBottom: -3 }} {...props} />;
 }
 
-// Each tab has its own navigation stack, you can read more about this pattern here:
+// Each tab has its own navigation stack, you can read more Favorites this pattern here:
 // https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
-const HomeStack = createStackNavigator<HomeParamList>();
+const SearchStack = createStackNavigator<SearchParamList>();
 
-function HomeNavigator() {
+function SearchNavigator() {
   return (
-    <HomeStack.Navigator>
-      <HomeStack.Screen
-        name="Home"
+    <SearchStack.Navigator>
+      <SearchStack.Screen
+        name="Search"
         component={Home}
         options={
           { 
@@ -62,7 +62,7 @@ function HomeNavigator() {
           }
         }
       />
-      <HomeStack.Screen
+      <SearchStack.Screen
         name="CityInfo"
         component={CityInfo}
         options={
@@ -71,24 +71,33 @@ function HomeNavigator() {
           }
         }
       />
-    </HomeStack.Navigator>
+    </SearchStack.Navigator>
   );
 }
 
-const AboutStack = createStackNavigator<AboutParamList>();
+const FavoritesStack = createStackNavigator<FavoritesParamList>();
 
-function AboutNavigator() {
+function FavoritesNavigator() {
   return (
-    <AboutStack.Navigator>
-      <AboutStack.Screen
-        name="About"
-        component={About}
+    <FavoritesStack.Navigator>
+      <FavoritesStack.Screen
+        name="Favorites"
+        component={Favorites}
         options={
           { 
             headerShown: false,
           }
         }
       />
-    </AboutStack.Navigator>
+      <FavoritesStack.Screen
+        name="CityInfo"
+        component={CityInfo}
+        options={
+          { 
+            headerShown: false,
+          }
+        }
+      />
+    </FavoritesStack.Navigator>
   );
 }

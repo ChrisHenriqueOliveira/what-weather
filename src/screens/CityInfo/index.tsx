@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { View, Text, Image, ActivityIndicator, ScrollView } from 'react-native';
+import { View, Text, Image, ActivityIndicator, ScrollView, StyleSheet, Dimensions, FlatList } from 'react-native';
+import { Feather } from '@expo/vector-icons';
 
 import {
   Container,
@@ -10,6 +11,8 @@ import {
   SectionNextHoursCard,
   SectionNextHoursCardDay,
   SectionNextHoursCardTemp,
+  AddFavoriteButton,
+  AddFavoriteButtonText,
   } from './styles';
 
   import icon1 from '../../assets/images/icons/01d.png';
@@ -25,6 +28,7 @@ import {
 import CurrentWeather from '../../components/CityInfoComponents/CurrentWeather';
 
 import { cities } from '../../mocks/cities';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
   interface CitiesProps {
     name: string;
@@ -1443,20 +1447,20 @@ const CityInfo: React.FC = () => {
 		ampm = 'AM',
 		time;
 			
-	if (hh > 12) {
-		h = hh - 12;
-		ampm = 'PM';
-	} else if (hh === 12) {
-		h = 12;
-		ampm = 'PM';
-	} else if (hh == 0) {
-		h = 12;
-	}
+    if (hh > 12) {
+      h = hh - 12;
+      ampm = 'PM';
+    } else if (hh === 12) {
+      h = 12;
+      ampm = 'PM';
+    } else if (hh == 0) {
+      h = 12;
+	  }
 	
-	// ie: 2013-02-18, 8:35 AM	
-  time = dd + '/' + mm + ' - ' + h + ':' + min + ' ' + ampm;
+	  // ie: 2013-02-18, 8:35 AM	
+    time = dd + '/' + mm + ' - ' + h + ':' + min + ' ' + ampm;
   
-  return time;
+    return time;
   }
 
   useEffect(() => {
@@ -1479,7 +1483,7 @@ const CityInfo: React.FC = () => {
        .then(response => response.json())
        .then(data => {
          setCityConditions(data);
-         console.log(data);
+        //  console.log(data);
          
          setLoading(false);
        })
@@ -1488,7 +1492,6 @@ const CityInfo: React.FC = () => {
   }, [navigation]);
 
   const handleWeatherIcon = useCallback((value) => {
-
 
     if (value >= 200 && value <= 232) {
       return <Image source={icon7}/>
@@ -1512,6 +1515,28 @@ const CityInfo: React.FC = () => {
 
 
   },[])
+
+  const storeData = async () => {
+    console.log('add favorites');
+    // try {
+    //   const value = await AsyncStorage.getItem('@MyFavorites');
+    //   if (value !== null) {
+    //     // We have data!!
+    //     console.log(value);
+    //   }
+    // } catch (error) {
+    //   // Error retrieving data
+    // }
+
+    // try {
+    //   await AsyncStorage.setItem(
+    //     '@MyFavorites',
+    //     'I like to save it.'
+    //   );
+    // } catch (error) {
+    //   // Error saving data
+    // }
+  };
 
   return (
     <Container>
@@ -1540,7 +1565,28 @@ const CityInfo: React.FC = () => {
                   </SectionNextHoursCard>
               ))}
               </SectionNextHoursContent>
-            </SectionNextHours>
+          </SectionNextHours>
+
+          <FlatList
+          style={styles.flatlist}
+          data={[
+            { key: 'Poluição do ar (qualidade): Moderada' },
+            { key: 'Transito: Movimentado/Agitado' },
+            { key: 'Áreas de alagamento: Nenhuma' },
+            { key: 'Áreas de inundação: Nenhuma' },
+            { key: 'Inversão térmica: Média' },
+            { key: 'Desmatamento: Nenhum registro em 24h' },
+          ]}
+          renderItem={({ item }: any) => 
+          <TouchableOpacity>
+            <Text style={styles.item}>{item.key}</Text>
+          </TouchableOpacity>}
+        />
+
+          <AddFavoriteButton onPress={() => storeData()}>
+            <Feather name="heart" size={24} color="#eee" style={{marginHorizontal: 16}}/>
+            <AddFavoriteButtonText>Adicionar aos favoritos</AddFavoriteButtonText>
+            </AddFavoriteButton>
         </ScrollView>
       )}
     </Container>
@@ -1548,3 +1594,19 @@ const CityInfo: React.FC = () => {
 };
 
 export default CityInfo;
+
+const styles = StyleSheet.create({
+  flatlist: {
+    marginTop: 16,
+  },
+  item: {
+    padding: 10,
+    marginTop: 4,
+    marginHorizontal: 24,
+    fontSize: 18,
+    height: 44,
+    width: Dimensions.get('window').width,
+    backgroundColor: '#eee',
+    borderRadius: 8,
+  },
+});

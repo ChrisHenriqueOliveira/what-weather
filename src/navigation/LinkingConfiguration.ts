@@ -6,15 +6,16 @@ export default {
     screens: {
       Root: {
         screens: {
-          Home: {
+          Search: {
             screens: {
-              Home: 'home',
+              Search: 'search',
               CityInfo: 'cityInfo',
             },
           },  
-          About: {
+          Favorites: {
             screens: {
-              About: 'about',
+              Favorites: 'Favorites',
+              CityInfo: 'cityInfo',
             },
           },     
         },

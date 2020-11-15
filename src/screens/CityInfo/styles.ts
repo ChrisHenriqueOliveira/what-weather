@@ -5,7 +5,7 @@ export const Container = styled.View`
 
   background-color: #70A9EF;
 
-  padding-bottom: 30px;
+  /* padding-bottom: 30px; */
 `;
 
 export const SectionNextHours = styled.View``;
@@ -41,4 +41,22 @@ export const SectionNextHoursCardDay = styled.Text`
 export const SectionNextHoursCardTemp = styled.Text`
   font-family: 'Montserrat-Bold';
   font-size: 18px;
+`;
+
+export const AddFavoriteButton = styled.TouchableOpacity`
+  margin: 16px 24px;
+  height: 56px;
+  background-color: #e34;
+  border-radius: 8px;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const AddFavoriteButtonText = styled.Text`
+  font-family: 'Montserrat-Regular';
+  font-size: 16px;
+  color: #eee;
 `;

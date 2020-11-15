@@ -70,11 +70,12 @@ export const HeaderViewSubtitle = styled.Text`
   text-shadow: 2px 2px #000052;
 `;
 
-export const AboutView = styled.View`
+export const FavoritesView = styled.View`
 
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding-top: 10px;
 `;
